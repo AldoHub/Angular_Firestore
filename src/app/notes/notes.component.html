@@ -1,0 +1,23 @@
+<div class="notes-container" *ngIf="notes?.length > 0; else noNotes">
+  <div class="note" *ngFor="let note of notes">
+    <div>{{note.content}} </div>
+    <span *ngIf="edit && noteToEdit.id == note.id" (click)="collapsePanel()" class="collapse"><i class="fa fa-compress" aria-hidden="true"></i></span>  
+    <span (click)="editNote($event, note)" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+    <span (click)="deleteNote($event, note)"  class="delete"><i class="fa fa-times" aria-hidden="true"></i></span>
+
+
+    <div class="update-form" *ngIf="edit && noteToEdit.id == note.id">
+        <form (ngSubmit)="updateNote(note)" id="edit-form">
+          <input [(ngModel)]="note.content" type="text" name="edit" />
+          <input type="submit" value="Update"/>
+        </form>    
+    </div>
+
+  </div>
+</div>
+
+
+
+<ng-template #noNotes>
+  <h3>There are no notes to show</h3>
+</ng-template>
